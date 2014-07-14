@@ -14,3 +14,5 @@ RUN apt-get install -y wget ca-certificates gettext-base
 
 # Podstawy pythona
 RUN apt-get install -y python python-pip python-setuptools
+
+RUN pip install --upgrade pip

@@ -1,4 +1,4 @@
-FROM maciek/ubuntu
+FROM moledzki/ubuntu
 MAINTAINER Maciej Olędzki <maciej.oledzki@gmail.com>
 
 RUN sudo apt-get install -y postgresql-9.3 postgresql-contrib-9.3 sudo gettext-base

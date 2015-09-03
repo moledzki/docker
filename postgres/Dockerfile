@@ -8,7 +8,7 @@ RUN mkdir /etc/ssl/private-copy; mv /etc/ssl/private/* /etc/ssl/private-copy/; r
 ADD postgresql.conf /etc/postgresql/9.3/main/postgresql.conf
 ADD pg_hba.conf /etc/postgresql/9.3/main/pg_hba.conf
 ADD run.sh /usr/local/bin/run.sh
-ADD create_zosia_user_database_template.sql /usr/local/share/postgresql/create_zosia_user_database_template.sql
+ADD create_user_database_template.sql /usr/local/share/postgresql/create_user_database_template.sql
 ADD prepare_database_template.sql /usr/local/share/postgresql/prepare_database_template.sql
 RUN chmod +x /usr/local/bin/run.sh
 

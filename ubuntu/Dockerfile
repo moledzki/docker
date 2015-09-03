@@ -1,4 +1,4 @@
-FROM ubuntu:14.04
+FROM ubuntu:14.04.3
 MAINTAINER Maciej Olędzki <maciej.oledzki@gmail.com>
 
 # Set locale
@@ -9,4 +9,4 @@ ENV DEBCONF_FRONTEND noninteractive
 
 RUN apt-get update
 
-RUN apt-get install -y wget ca-certificates gettext-base
+RUN apt-get install -y --fix-missing wget ca-certificates gettext-base

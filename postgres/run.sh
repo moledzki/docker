@@ -4,6 +4,7 @@ set -e
 POSTGRESQL_USER=${POSTGRESQL_USER:-"pguser"}
 POSTGRESQL_PASS=${POSTGRESQL_PASS:-"pguser"}
 POSTGRESQL_DATABASE=${POSTGRESQL_DATABASE:-"pgdb"}
+POSTGRESQL_KEEP_DB=${POSTGRESQL_KEEP:-"no"}
 
 echo $POSTGRESQL_USER
 echo $POSTGRESQL_PASS
@@ -15,8 +16,10 @@ POSTGRESQL_BIN=/usr/lib/postgresql/9.3/bin/postgres
 POSTGRESQL_CONFIG_FILE=/etc/postgresql/9.3/main/postgresql.conf
 POSTGRESQL_DATA=/var/lib/postgresql/9.3/main
 
-rm -rf $POSTGRESQL_DATA
-#if [ ! -d $POSTGRESQL_DATA ]; then
+if [ "$POSTGRESQL_KEEP_DB" == "no" ]; then
+    rm -rf $POSTGRESQL_DATA
+fi
+if [ ! -d $POSTGRESQL_DATA ]; then
     mkdir -p $POSTGRESQL_DATA
     chown -R postgres:postgres /var/lib/postgresql
     sudo -u postgres /usr/lib/postgresql/9.3/bin/initdb -D $POSTGRESQL_DATA
@@ -27,5 +30,5 @@ rm -rf $POSTGRESQL_DATA
     envsubst < /usr/local/share/postgresql/prepare_database_template.sql > /usr/local/share/postgresql/prepare_database.sql
     sudo -u postgres $POSTGRESQL_BIN --single --config-file=$POSTGRESQL_CONFIG_FILE -d 2 postgres < /usr/local/share/postgresql/create_user_database.sql
     sudo -u postgres $POSTGRESQL_BIN --single --config-file=$POSTGRESQL_CONFIG_FILE -d 2 $POSTGRESQL_DATABASE < /usr/local/share/postgresql/prepare_database.sql
-
+fi
 exec sudo -u postgres $POSTGRESQL_BIN --config-file=$POSTGRESQL_CONFIG_FILE

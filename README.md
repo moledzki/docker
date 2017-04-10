@@ -1,4 +1,4 @@
 docker
 ======
 
-Variosu docker images
+Various docker images

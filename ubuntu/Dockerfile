@@ -1,4 +1,4 @@
-FROM ubuntu:14.04.3
+FROM ubuntu:14.04.5
 MAINTAINER Maciej Olędzki <maciej.oledzki@gmail.com>
 
 # Set locale

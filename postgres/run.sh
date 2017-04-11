@@ -4,11 +4,11 @@ set -e
 POSTGRESQL_USER=${POSTGRESQL_USER:-"pguser"}
 POSTGRESQL_PASS=${POSTGRESQL_PASS:-"pguser"}
 POSTGRESQL_DATABASE=${POSTGRESQL_DATABASE:-"pgdb"}
-POSTGRESQL_KEEP_DB=${POSTGRESQL_KEEP:-"no"}
+POSTGRESQL_KEEP_DB=${POSTGRESQL_KEEP_DB:-"no"}
 
-echo $POSTGRESQL_USER
-echo $POSTGRESQL_PASS
-echo "ALTER USER $POSTGRESQL_USER WITH PASSWORD '$POSTGRESQL_PASS';"
+#echo $POSTGRESQL_USER
+#echo $POSTGRESQL_PASS
+#echo "ALTER USER $POSTGRESQL_USER WITH PASSWORD '$POSTGRESQL_PASS';"
 
 export POSTGRESQL_USER POSTGRESQL_PASS POSTGRESQL_DATABASE
 
@@ -17,8 +17,12 @@ POSTGRESQL_CONFIG_FILE=/etc/postgresql/9.3/main/postgresql.conf
 POSTGRESQL_DATA=/var/lib/postgresql/9.3/main
 
 if [ "$POSTGRESQL_KEEP_DB" == "no" ]; then
+    echo "Postgres data directory will be deleted. Set POSTGRESQL_KEEP_DB to 'yes' to prevent this."
     rm -rf $POSTGRESQL_DATA
+else 
+    echo "Postgres data directory will keep intact. Set POSTGRESQL_KEEP_DB to 'no' to remove it on startup."
 fi
+
 if [ ! -d $POSTGRESQL_DATA ]; then
     mkdir -p $POSTGRESQL_DATA
     chown -R postgres:postgres /var/lib/postgresql

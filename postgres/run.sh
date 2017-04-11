@@ -24,6 +24,8 @@ else
     echo "Postgres data directory will keep intact. Set POSTGRESQL_KEEP_DB to 'no' to remove it on startup."
 fi
 
+ls $POSTGRESQL_DATA
+
 if [ ! -d $POSTGRESQL_DATA ]; then
     mkdir -p $POSTGRESQL_DATA
     chown -R postgres:postgres /var/lib/postgresql

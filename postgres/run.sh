@@ -6,7 +6,7 @@ POSTGRESQL_PASS=${DB_PASS:-"pguser"}
 POSTGRESQL_DATABASE=${DB_DATABASE:-"pgdb"}
 POSTGRESQL_KEEP_DB=${DB_KEEP_DB:-"no"}
 
-NOT_READY_LOCK=/var/lib/postgresql/not_ready
+NOT_READY_LOCK=/var/tmp/db_not_ready
 
 echo $POSTGRESQL_USER
 echo $POSTGRESQL_PASS

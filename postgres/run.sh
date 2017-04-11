@@ -6,6 +6,8 @@ POSTGRESQL_PASS=${DB_PASS:-"pguser"}
 POSTGRESQL_DATABASE=${DB_DATABASE:-"pgdb"}
 POSTGRESQL_KEEP_DB=${DB_KEEP_DB:-"no"}
 
+NOT_READY_LOCK=/var/lib/postgresql/not_ready
+
 echo $POSTGRESQL_USER
 echo $POSTGRESQL_PASS
 echo $POSTGRESQL_DATABASE
@@ -24,7 +26,10 @@ else
     echo "Postgres data directory will keep intact. Set POSTGRESQL_KEEP_DB to 'no' to remove it on startup."
 fi
 
-#ls $POSTGRESQL_DATA
+if [ -f $NOT_READY_LOCK ]; then
+    echo "Database dir was not fully initialized and will be removed."
+    rm -rf $POSTGRESQL_DATA
+fi
 
 if [ ! -d $POSTGRESQL_DATA ]; then
     mkdir -p $POSTGRESQL_DATA
@@ -37,5 +42,6 @@ if [ ! -d $POSTGRESQL_DATA ]; then
     envsubst < /usr/local/share/postgresql/prepare_database_template.sql > /usr/local/share/postgresql/prepare_database.sql
     sudo -u postgres $POSTGRESQL_BIN --single --config-file=$POSTGRESQL_CONFIG_FILE -d 2 postgres < /usr/local/share/postgresql/create_user_database.sql
     sudo -u postgres $POSTGRESQL_BIN --single --config-file=$POSTGRESQL_CONFIG_FILE -d 2 $POSTGRESQL_DATABASE < /usr/local/share/postgresql/prepare_database.sql
+    rm -f $NOT_READY_LOCK
 fi
 exec sudo -u postgres $POSTGRESQL_BIN --config-file=$POSTGRESQL_CONFIG_FILE

@@ -25,5 +25,5 @@ echo "Selenium is active"
 sleep 10
 
 
-cd /var/robot/input
-pybot --runemptysuite -d /var/robot/output $SUITE
+cd /var/lib/robot/input
+pybot --runemptysuite -d /var/lib/robot/output $SUITE

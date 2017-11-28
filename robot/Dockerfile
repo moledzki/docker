@@ -1,7 +1,7 @@
 FROM moledzki/python
 MAINTAINER Maciej Olędzki <maciej.oledzki@gmail.com>
 
-RUN apt-get update && apt-get install -y python-psycopg2
+RUN apt-get update && apt-get install -y python-psycopg2 curl
 
 RUN pip install robotframework robotframework-selenium2library robotframework-databaselibrary
 

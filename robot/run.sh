@@ -26,4 +26,4 @@ sleep 10
 
 
 cd /var/lib/robot/input
-pybot --runemptysuite -d /var/lib/robot/output $SUITE
+pybot --runemptysuite --exclude raporty -d /var/lib/robot/output $SUITE

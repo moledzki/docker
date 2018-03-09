@@ -17,6 +17,7 @@ while ! curl -sL "${WEB_PROTOCOL}://${WEB_HOST}:${WEB_PORT}" | grep "${WEB_EXPEC
   timeout=$((timeout+2))
   if [ $timeout -gt "$APP_STARTUP_TIMEOUT" ]; 
   then
+    echo "Error: Timeout reached ($APP_STARTUP_TIMEOUT)s when waiting for Web Application start. Test execution terminated!"
     exit 1
   fi
 done

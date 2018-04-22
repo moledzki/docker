@@ -14,7 +14,7 @@ ADD create_user_database_template.sql /usr/local/share/postgresql/create_user_da
 ADD prepare_database_template.sql /usr/local/share/postgresql/prepare_database_template.sql
 RUN chmod +x /usr/local/bin/run.sh
 RUN rm -rf /var/lib/postgresql
-RUN touch /var/tmp/db_not_ready
+#RUN touch /var/tmp/db_not_ready
 
 #VOLUME ["/var/lib/postgresql"]
 

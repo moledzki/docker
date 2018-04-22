@@ -29,7 +29,7 @@ fi
 if [ ! -d $POSTGRESQL_DATA ]; then
     mkdir -p $POSTGRESQL_DATA
     touch $NOT_READY_LOCK
-    chown -R postgres:postgres /var/lib/postgresql "
+    chown -R postgres:postgres /var/lib/postgresql
     sudo -u postgres /usr/lib/postgresql/9.3/bin/initdb -D $POSTGRESQL_DATA
     ln -s /etc/ssl/certs/ssl-cert-snakeoil.pem $POSTGRESQL_DATA/server.crt
     ln -s /etc/ssl/private/ssl-cert-snakeoil.key $POSTGRESQL_DATA/server.key

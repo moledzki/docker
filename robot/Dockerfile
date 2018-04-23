@@ -1,7 +1,7 @@
 FROM moledzki/python
 MAINTAINER Maciej Olędzki <maciej.oledzki@gmail.com>
 
-RUN apt-get update && apt-get install -y python-psycopg2 curl
+RUN apt-get update && apt-get install -y python-psycopg2 curl && rm -rf /var/lib/apt/lists/*
 
 RUN pip install robotframework==3.0.2 selenium==3.7.0 robotframework-seleniumlibrary==3.0.1 robotframework-databaselibrary==1.0.1
 

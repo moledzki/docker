@@ -7,4 +7,4 @@ ENV LC_ALL en_US.UTF-8
 ENV DEBIAN_FRONTEND noninteractive
 ENV DEBCONF_FRONTEND noninteractive
 
-RUN apt-get update && apt-get install -y --fix-missing wget ca-certificates gettext-base
+RUN apt-get update && apt-get install -y --fix-missing wget ca-certificates gettext-base && rm -rf /var/lib/apt/lists/*

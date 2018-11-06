@@ -12,7 +12,7 @@ APP_STARTUP_TIMEOUT=${ROBOT_APP_STARTUP_TIMEOUT:-"600"}
 
 timeout=0
 echo "Waiting for Web Application on ${WEB_PROTOCOL}://${WEB_HOST}:${WEB_PORT}"
-while ! curl -sL "${WEB_PROTOCOL}://${WEB_HOST}:${WEB_PORT}" | grep "${WEB_EXPECTED_STRING}" > /dev/null ; do
+while ! curl -ksL "${WEB_PROTOCOL}://${WEB_HOST}:${WEB_PORT}" | grep "${WEB_EXPECTED_STRING}" > /dev/null ; do
   sleep 2
   timeout=$((timeout+2))
   if [ $timeout -gt "$APP_STARTUP_TIMEOUT" ]; 

@@ -10,9 +10,9 @@ NOT_READY_LOCK=/var/tmp/db_not_ready
 
 export POSTGRESQL_USER POSTGRESQL_PASS POSTGRESQL_DATABASE
 
-POSTGRESQL_BIN=/usr/lib/postgresql/9.3/bin/postgres
-POSTGRESQL_CONFIG_FILE=/etc/postgresql/9.3/main/postgresql.conf
-POSTGRESQL_DATA=/var/lib/postgresql/9.3/main
+POSTGRESQL_BIN=/usr/lib/postgresql/9.5/bin/postgres
+POSTGRESQL_CONFIG_FILE=/etc/postgresql/9.5/main/postgresql.conf
+POSTGRESQL_DATA=/var/lib/postgresql/9.5/main
 
 if [ "$POSTGRESQL_KEEP_DB" == "no" ]; then
     echo "Postgres data directory will be deleted. Set POSTGRESQL_KEEP_DB to 'yes' to prevent this."
@@ -30,7 +30,7 @@ if [ ! -d $POSTGRESQL_DATA ]; then
     mkdir -p $POSTGRESQL_DATA
     touch $NOT_READY_LOCK
     chown -R postgres:postgres /var/lib/postgresql
-    sudo -u postgres /usr/lib/postgresql/9.3/bin/initdb -D $POSTGRESQL_DATA
+    sudo -u postgres /usr/lib/postgresql/9.5/bin/initdb -D $POSTGRESQL_DATA
     ln -s /etc/ssl/certs/ssl-cert-snakeoil.pem $POSTGRESQL_DATA/server.crt
     ln -s /etc/ssl/private/ssl-cert-snakeoil.key $POSTGRESQL_DATA/server.key
 

@@ -45,4 +45,4 @@ echo "Selenium is active"
 
 cd /var/lib/robot/input || exit
 
-pybot --runemptysuite --exclude "${EXCLUDED_TESTS}" -d /var/lib/robot/output -x /var/lib/robot/output/xunit.xml "${SUITE}"
+robot --runemptysuite --exclude "${EXCLUDED_TESTS}" -d /var/lib/robot/output -x /var/lib/robot/output/xunit.xml "${SUITE}"

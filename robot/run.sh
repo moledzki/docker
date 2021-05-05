@@ -8,6 +8,7 @@ WEB_EXPECTED_STRING=${ROBOT_WEB_EXPECTED_STRING:-".*"}
 SELENIUM_HOST=${ROBOT_SELENIUM_HOST:-"localhost"}
 SELENIUM_PORT=${ROBOT_SELENIUM_PORT:-"4444"}
 EXCLUDED_TESTS=${ROBOT_EXCLUED_TESTS:-"defaultexcludetag"}
+INCLUDED_TESTS=${ROBOT_INCLUDED_TESTS}
 APP_STARTUP_TIMEOUT=${ROBOT_APP_STARTUP_TIMEOUT:-"600"}
 
 timeout=0
@@ -45,4 +46,11 @@ echo "Selenium is active"
 
 cd /var/lib/robot/input || exit
 
-robot --runemptysuite --exclude "${EXCLUDED_TESTS}" -d /var/lib/robot/output -x /var/lib/robot/output/xunit.xml "${SUITE}"
+if [ -z ${INCLUDED_TESTS} ]
+then
+  robot --runemptysuite --exclude "${EXCLUDED_TESTS}" -d /var/lib/robot/output -x /var/lib/robot/output/xunit.xml "${SUITE}"
+else
+  robot --runemptysuite --include $"{INCLUDED_TESTS}" --exclude "${EXCLUDED_TESTS}" -d /var/lib/robot/output -x /var/lib/robot/output/xunit.xml "${SUITE}"
+
+fi
+

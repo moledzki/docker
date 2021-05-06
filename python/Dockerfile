@@ -1,4 +1,4 @@
-FROM moledzki/ubuntu
+FROM moledzki/ubuntu:14.04.5
 MAINTAINER Maciej Olędzki <maciej.oledzki@gmail.com>
 
 COPY pip-9.0.1.tar.gz /

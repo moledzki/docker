@@ -50,7 +50,7 @@ if [ -z ${INCLUDED_TESTS} ]
 then
   robot --runemptysuite --exclude "${EXCLUDED_TESTS}" -d /var/lib/robot/output -x /var/lib/robot/output/xunit.xml "${SUITE}"
 else
-  robot --runemptysuite --include $"{INCLUDED_TESTS}" --exclude "${EXCLUDED_TESTS}" -d /var/lib/robot/output -x /var/lib/robot/output/xunit.xml "${SUITE}"
+  robot --runemptysuite --include "${INCLUDED_TESTS}" --exclude "${EXCLUDED_TESTS}" -d /var/lib/robot/output -x /var/lib/robot/output/xunit.xml "${SUITE}"
 
 fi
 

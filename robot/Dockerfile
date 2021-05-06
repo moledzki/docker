@@ -13,3 +13,4 @@ VOLUME ["/var/lib/robot/input"]
 VOLUME ["/var/lib/robot/output"]
 
 CMD ["echo" "Use run command"]
+

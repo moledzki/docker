@@ -7,6 +7,7 @@ WEB_PROTOCOL=${ROBOT_WEB_PROTOCOL:-"http"}
 WEB_EXPECTED_STRING=${ROBOT_WEB_EXPECTED_STRING:-".*"}
 SELENIUM_HOST=${ROBOT_SELENIUM_HOST:-"localhost"}
 SELENIUM_PORT=${ROBOT_SELENIUM_PORT:-"4444"}
+SELENIUM_URL=${ROBOT_SELENIUM_URL:-""}
 EXCLUDED_TESTS=${ROBOT_EXCLUED_TESTS:-"defaultexcludetag"}
 INCLUDED_TESTS=${ROBOT_INCLUDED_TESTS}
 APP_STARTUP_TIMEOUT=${ROBOT_APP_STARTUP_TIMEOUT:-"600"}
@@ -31,7 +32,7 @@ echo "Web application is active"
 
 echo "Waiting for selenium on $SELENIUM_HOST:$SELENIUM_PORT"
 
-while ! curl -sL "http://${SELENIUM_HOST}:${SELENIUM_PORT}/wd/hub" | grep "WebDriver Hub" > /dev/null; do
+while ! curl -sL "http://${SELENIUM_HOST}:${SELENIUM_PORT}${SELENIUM_URL}/status" | jq .value.ready | grep "true" > /dev/null; do
   sleep 1 # wait for 1 before check again
 done
 

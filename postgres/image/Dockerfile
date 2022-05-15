@@ -1,14 +1,17 @@
-FROM moledzki/ubuntu
+#FROM moledzki/ubuntu:14.04.5
+FROM moledzki/ubuntu:20.04-1
 MAINTAINER Maciej Olędzki <maciej.oledzki@gmail.com>
 
-RUN sudo locale-gen en_GB && sudo locale-gen en_GB.UTF-8 && sudo update-locale
+RUN locale-gen en_GB && locale-gen en_GB.UTF-8 && update-locale
 
 # Install key
-RUN wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo apt-key add -
-# Adding 14.04 repo for postgresql 9.5
-RUN sh -c 'echo "deb http://apt.postgresql.org/pub/repos/apt/ trusty-pgdg main" >> /etc/apt/sources.list.d/postgresql.list'
+RUN apt-get update && apt-get install -y gnupg && rm -rf /var/lib/apt/lists/*
 
-RUN sudo apt-get update && sudo apt-get install -y postgresql-9.5 postgresql-contrib-9.5 sudo gettext-base && rm -rf /var/lib/apt/lists/*
+RUN wget --no-check-certificate --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | apt-key add -
+# Adding 14.04 repo for postgresql 9.5
+RUN sh -c 'echo "deb http://apt.postgresql.org/pub/repos/apt/ focal-pgdg main" >> /etc/apt/sources.list.d/postgresql.list'
+
+RUN apt-get update && apt-get install -y postgresql-9.5 postgresql-contrib-9.5 gettext-base && rm -rf /var/lib/apt/lists/*
 
 RUN mkdir /etc/ssl/private-copy; mv /etc/ssl/private/* /etc/ssl/private-copy/; rm -r /etc/ssl/private; mv /etc/ssl/private-copy /etc/ssl/private; chmod -R 0700 /etc/ssl/private; chown -R postgres /etc/ssl/private
 

@@ -11,18 +11,25 @@ SELENIUM_URL=${ROBOT_SELENIUM_URL:-""}
 EXCLUDED_TESTS=${ROBOT_EXCLUED_TESTS:-"defaultexcludetag"}
 INCLUDED_TESTS=${ROBOT_INCLUDED_TESTS}
 APP_STARTUP_TIMEOUT=${ROBOT_APP_STARTUP_TIMEOUT:-"600"}
+SKIP_WEB_APP_DETECTION=${ROBOT_SKIP_APP_DETECTION:""}
 
-timeout=0
-echo "Waiting for Web Application on ${WEB_PROTOCOL}://${WEB_HOST}:${WEB_PORT}"
-while ! curl -ksL "${WEB_PROTOCOL}://${WEB_HOST}:${WEB_PORT}" | grep "${WEB_EXPECTED_STRING}" > /dev/null ; do
-  sleep 2
-  timeout=$((timeout+2))
-  if [ $timeout -gt "$APP_STARTUP_TIMEOUT" ]; 
-  then
-    echo "Error: Timeout reached ($APP_STARTUP_TIMEOUT)s when waiting for Web Application start. Test execution terminated!"
-    exit 1
-  fi
-done
+
+if [ -z "$SKIP_WEB_APP_DETECTION" ]
+then
+  timeout=0
+  echo "Waiting for Web Application on ${WEB_PROTOCOL}://${WEB_HOST}:${WEB_PORT}"
+  while ! curl -ksL "${WEB_PROTOCOL}://${WEB_HOST}:${WEB_PORT}" | grep "${WEB_EXPECTED_STRING}" > /dev/null ; do
+    sleep 2
+    timeout=$((timeout+2))
+    if [ $timeout -gt "$APP_STARTUP_TIMEOUT" ]; 
+    then
+      echo "Error: Timeout reached ($APP_STARTUP_TIMEOUT)s when waiting for Web Application start. Test execution terminated!"
+      exit 1
+    fi
+  done
+else
+  echo "Skipping detection of ${WEB_PROTOCOL}://${WEB_HOST}:${WEB_PORT} (variable SKIP_WEB_APP_DETECTION) is set"
+fi
 
 #while ! nc -z $WEB_HOST $WEB_PORT; do
 #  sleep 2 # wait for 1/10 of the second before check again

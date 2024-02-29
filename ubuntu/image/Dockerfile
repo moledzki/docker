@@ -1,5 +1,5 @@
 #FROM ubuntu:22.10
-FROM ubuntu:20.04
+FROM ubuntu:22.04
 MAINTAINER Maciej Olędzki <maciej.oledzki@gmail.com>
 
 ENV LC_ALL en_US.UTF-8

@@ -1,4 +1,4 @@
-FROM moledzki/ubuntu:22.10-1
+FROM moledzki/ubuntu:22.04-1
 MAINTAINER Maciej Olędzki <maciej.oledzki@gmail.com>
 
 #COPY pip-9.0.1.tar.gz /

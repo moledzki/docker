@@ -1,4 +1,4 @@
-FROM moledzki/python:u22.10-p3.10.4
+FROM moledzki/python:u22.04-p3.10.4
 MAINTAINER Maciej Olędzki <maciej.oledzki@gmail.com>
 
 ARG robotVersion
@@ -8,7 +8,6 @@ ARG robotDatabaseVersion
 ARG robotImapVersion
 
 RUN test -n "$robotVersion" && test -n "$seleniumVersion" && test -n "$robotSeleniumVersion" && test -n "$robotDatabaseVersion" && test -n "$robotImapVersion"
-
 RUN apt-get update && apt-get install -y python3-psycopg2 curl jq && rm -rf /var/lib/apt/lists/*
 
 #RUN pip install --upgrade --ignore-installed urllib3

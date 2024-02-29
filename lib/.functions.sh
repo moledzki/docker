@@ -26,5 +26,5 @@ function buildImage {
 }
 
 function pushImage {
-	sudo docker push moledzki/${IMAGE_NAME}:${IMAGE_VERSION}
+	docker push moledzki/${IMAGE_NAME}:${IMAGE_VERSION}
 }

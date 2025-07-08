@@ -52,7 +52,7 @@ echo "Selenium is active"
 
 #sleep 10
 
-cd /var/lib/robot/input || exit
+cd /var/lib/robot/input/Zosia || exit
 
 if [ -z ${INCLUDED_TESTS} ]
 then

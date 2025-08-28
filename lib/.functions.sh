@@ -1,6 +1,6 @@
 function getImageVersions {
 	#1 - image name
-	wget -q https://registry.hub.docker.com/v1/repositories/moledzki/${1}/tags -O -  | sed -e 's/[][]//g' -e 's/"//g' -e 's/ //g' | tr '}' '\n'  | awk -F: '{print $3}'
+	curl -s https://hub.docker.com/v2/namespaces/moledzki/repositories/${1}/tags  | jq -r '.results[].name' | sort -rV | head -1
 }
 
 function ensureNewImageVersion {
@@ -22,7 +22,7 @@ function buildArgumentList {
 function buildImage {
 	ensureNewImageVersion
 	buildArgumentList "$@"
-	sudo docker build -t moledzki/${IMAGE_NAME}:${IMAGE_VERSION} ${BUILD_ARGS[*]} image/
+	docker build -t moledzki/${IMAGE_NAME}:${IMAGE_VERSION} ${BUILD_ARGS[*]} image/
 }
 
 function pushImage {

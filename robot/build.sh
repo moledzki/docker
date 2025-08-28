@@ -4,4 +4,4 @@ source INFO
 source ../lib/.functions.sh
 
 #set -x
-buildImage robotVersion=${ROBOT_VERSION} seleniumVersion=${SELENIUM_VERSION} robotSeleniumVersion=${ROBOT_SELENIUM_VERSION} robotDatabaseVersion=${ROBOT_DATABASE_VERSION} robotImapVersion=${ROBOT_IMAP_VERSION} robotCSVVersion=${ROBOT_CSV_VERSION}
+buildImage robotVersion=${ROBOT_VERSION} seleniumVersion=${SELENIUM_VERSION} robotSeleniumVersion=${ROBOT_SELENIUM_VERSION} robotDatabaseVersion=${ROBOT_DATABASE_VERSION} robotImapVersion=${ROBOT_IMAP_VERSION} robotCSVVersion=${ROBOT_CSV_VERSION} robotPDFVersion=${ROBOT_PDF_VERSION} pdfplumberVersion=${PDF_PLUMBER_VERSION}

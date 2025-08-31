@@ -26,4 +26,4 @@ RUN chmod +x /usr/local/bin/run_tests
 VOLUME ["/var/lib/robot/input"]
 VOLUME ["/var/lib/robot/output"]
 
-CMD echo Należy użyć komendy run
+CMD ["echo",  "Należy użyć komendy run"]

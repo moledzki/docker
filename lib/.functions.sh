@@ -26,5 +26,7 @@ function buildImage {
 }
 
 function pushImage {
+	docker tag moledzki/${IMAGE_NAME}:${IMAGE_VERSION} moledzki/${IMAGE_NAME}:latest
 	docker push moledzki/${IMAGE_NAME}:${IMAGE_VERSION}
+	docker push moledzki/${IMAGE_NAME}:latest
 }

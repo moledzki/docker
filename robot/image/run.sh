@@ -56,9 +56,10 @@ cd /var/lib/robot/input/Zosia || exit
 
 if [ -z ${INCLUDED_TESTS} ]
 then
-  robot --runemptysuite --exclude "${EXCLUDED_TESTS}" -d /var/lib/robot/output -x /var/lib/robot/output/xunit.xml "${SUITE}"
+  # Jeśli INCLUDED_TESTS jest pusty, używamy tylko exclude
+  robot --runemptysuite --exclude "${EXCLUDED_TESTS}"--splitlog -d /var/lib/robot/output -x /var/lib/robot/output/xunit.xml "${SUITE}"
 else
-  robot --runemptysuite --include "${INCLUDED_TESTS}" --exclude "${EXCLUDED_TESTS}" -d /var/lib/robot/output -x /var/lib/robot/output/xunit.xml "${SUITE}"
-
+  # Zamiana przecinków na ' OR ' w INCLUDED_TESTS, jeśli istnieją
+  INCLUDED_TAGS=$(echo "${INCLUDED_TESTS}" | sed 's/,/ OR /g')
+  robot --runemptysuite --include "${INCLUDED_TAGS}" --exclude "${EXCLUDED_TESTS}"--splitlog -d /var/lib/robot/output -x /var/lib/robot/output/xunit.xml "${SUITE}"
 fi
-

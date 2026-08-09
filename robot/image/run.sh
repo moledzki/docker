@@ -12,6 +12,7 @@ EXCLUDED_TESTS=${ROBOT_EXCLUED_TESTS:-"defaultexcludetag"}
 INCLUDED_TESTS=${ROBOT_INCLUDED_TESTS}
 APP_STARTUP_TIMEOUT=${ROBOT_APP_STARTUP_TIMEOUT:-"600"}
 SKIP_WEB_APP_DETECTION=${ROBOT_SKIP_APP_DETECTION:-""}
+KEEP_FULL_OUTPUT_XML=${ROBOT_KEEP_FULL_OUTPUT_XML:-""}
 
 
 if [ -z "$SKIP_WEB_APP_DETECTION" ]
@@ -54,7 +55,7 @@ echo "Selenium is active"
 
 cd /var/lib/robot/input/Zosia || exit
 
-if [ -z ${INCLUDED_TESTS} ]
+if [ -z "${INCLUDED_TESTS}" ]
 then
   # Jeśli INCLUDED_TESTS jest pusty, używamy tylko exclude
   robot --runemptysuite --exclude "${EXCLUDED_TESTS}"--splitlog -d /var/lib/robot/output -x /var/lib/robot/output/xunit.xml "${SUITE}"
@@ -62,4 +63,9 @@ else
   # Zamiana przecinków na ' OR ' w INCLUDED_TESTS, jeśli istnieją
   INCLUDED_TAGS=$(echo "${INCLUDED_TESTS}" | sed 's/,/ OR /g')
   robot --runemptysuite --include "${INCLUDED_TAGS}" --exclude "${EXCLUDED_TESTS}"--splitlog -d /var/lib/robot/output -x /var/lib/robot/output/xunit.xml "${SUITE}"
+fi
+
+if [ -z "${KEEP_FULL_OUTPUT_XML}" ] || [ "${KEEP_FULL_OUTPUT_XML}" = "false" ] || [ "${KEEP_FULL_OUTPUT_XML}" = "0" ]
+then
+  rebot --removekeywords PASSED --output /var/lib/robot/output/output.xml --log NONE --report NONE /var/lib/robot/output/output.xml
 fi

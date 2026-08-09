@@ -62,7 +62,7 @@ then
 else
   # Zamiana przecinków na ' OR ' w INCLUDED_TESTS, jeśli istnieją
   INCLUDED_TAGS=$(echo "${INCLUDED_TESTS}" | sed 's/,/ OR /g')
-  robot --runemptysuite --include "${INCLUDED_TAGS}" --exclude "${EXCLUDED_TESTS}"--splitlog -d /var/lib/robot/output -x /var/lib/robot/output/xunit.xml "${SUITE}"
+  robot --runemptysuite --include "${INCLUDED_TAGS}" --exclude "${EXCLUDED_TESTS}" --splitlog -d /var/lib/robot/output -x /var/lib/robot/output/xunit.xml "${SUITE}"
 fi
 
 if [ -z "${KEEP_FULL_OUTPUT_XML}" ] || [ "${KEEP_FULL_OUTPUT_XML}" = "false" ] || [ "${KEEP_FULL_OUTPUT_XML}" = "0" ]

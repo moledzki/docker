@@ -8,7 +8,7 @@ WEB_EXPECTED_STRING=${ROBOT_WEB_EXPECTED_STRING:-".*"}
 SELENIUM_HOST=${ROBOT_SELENIUM_HOST:-"localhost"}
 SELENIUM_PORT=${ROBOT_SELENIUM_PORT:-"4444"}
 SELENIUM_URL=${ROBOT_SELENIUM_URL:-""}
-EXCLUDED_TESTS=${ROBOT_EXCLUED_TESTS:-"defaultexcludetag"}
+EXCLUDED_TESTS=${ROBOT_EXCLUDED_TESTS:-"defaultexcludetag"}
 INCLUDED_TESTS=${ROBOT_INCLUDED_TESTS}
 APP_STARTUP_TIMEOUT=${ROBOT_APP_STARTUP_TIMEOUT:-"600"}
 SKIP_WEB_APP_DETECTION=${ROBOT_SKIP_APP_DETECTION:-""}
@@ -55,14 +55,17 @@ echo "Selenium is active"
 
 cd /var/lib/robot/input/Zosia || exit
 
+# Zamiana przecinków na ' OR ' w EXCLUDED_TESTS, jeśli istnieją
+EXCLUDED_TAGS=$(echo "${EXCLUDED_TESTS}" | sed 's/,/ OR /g')
+
 if [ -z "${INCLUDED_TESTS}" ]
 then
   # Jeśli INCLUDED_TESTS jest pusty, używamy tylko exclude
-  robot --runemptysuite --exclude "${EXCLUDED_TESTS}"--splitlog -d /var/lib/robot/output -x /var/lib/robot/output/xunit.xml "${SUITE}"
+  robot --runemptysuite --exclude "${EXCLUDED_TAGS}"--splitlog -d /var/lib/robot/output -x /var/lib/robot/output/xunit.xml "${SUITE}"
 else
   # Zamiana przecinków na ' OR ' w INCLUDED_TESTS, jeśli istnieją
   INCLUDED_TAGS=$(echo "${INCLUDED_TESTS}" | sed 's/,/ OR /g')
-  robot --runemptysuite --include "${INCLUDED_TAGS}" --exclude "${EXCLUDED_TESTS}" --splitlog -d /var/lib/robot/output -x /var/lib/robot/output/xunit.xml "${SUITE}"
+  robot --runemptysuite --include "${INCLUDED_TAGS}" --exclude "${EXCLUDED_TAGS}" --splitlog -d /var/lib/robot/output -x /var/lib/robot/output/xunit.xml "${SUITE}"
 fi
 
 if [ -z "${KEEP_FULL_OUTPUT_XML}" ] || [ "${KEEP_FULL_OUTPUT_XML}" = "false" ] || [ "${KEEP_FULL_OUTPUT_XML}" = "0" ]
